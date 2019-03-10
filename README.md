@@ -24,7 +24,7 @@
 - RSA can be broken when the public modulus `N` is generated incorrectly.  These scripts illustrates how you'd be able to factor `N` when `p` and `q` are close to each other. 
 
  ### 8. Basic Textbook RSA Decryption
- - This script uses the information from factoring `N` to decrypt a short secret message that is encoded using PKCS v1.5 before textbook RSA function was applied. 
+ - This implements a pipeline using very basic textbook RSA encryption and decryption. PKCS v1.5 is applied to the short secret message prior to RSA encryption. Upon decryption, the plaintext recovered is assumed to have PKCS v1.5 format. 
  
 # References
 - [A Graduate Course in Applied Cryptography by Dan Boneh and Victor Shoup ](https://toc.cryptobook.us/)
