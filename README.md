@@ -6,7 +6,7 @@
 - This script will be able to decrypt a target ciphertext, given a bunch on intercepted ciphertexts encrypted with the same key (which may or may not have random errors). A stream cipher key should never be used more than once. 
 
 ### 2. Cipher Block Chaining (CBC) 
--  This script implements CBC (with random IV) mode of encryption and decryption using AES block ciphers with PKS5 padding scheme. You'll be able to encrypt or decrypt a text given a key.
+-  This script implements CBC (with random IV) mode of encryption and decryption using AES block ciphers with PKCS5 padding scheme. You'll be able to encrypt or decrypt a text given a key.
 
 ### 3. Randomized Counter Mode
 - This script implements CTR (with random IV) mode of encryption and decryption using built-in AES block ciphers functions. You'll be able to encrypt and decrypt a text given a key.
