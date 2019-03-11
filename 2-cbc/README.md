@@ -2,16 +2,16 @@
 This script implements one encryption/decryption systems in CBC mode of operation. We use AES for  decryption and encryption of each 16-byte block. The 16-byte encryption IV is chosen at random and is prepended to the ciphertext.The PKCS#5/#7 padding scheme is used.
 
 # Theory
-```
-Encryption parallelizable:  No
-Decryption parallelizable:  Yes
-Random read access: Yes
-```
 - [Cipher Block Chaining](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Block_Chaining_(CBC))
 - [AES (Advanced Encryption Standard)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
 - [PKCS #5/#7 padding scheme](https://en.wikipedia.org/wiki/Padding_(cryptography)#PKCS#5_and_PKCS#7)
 
 ![Cipher Block Chaining](./cbc-diagram.png)
+```
+Encryption parallelizable:  No
+Decryption parallelizable:  Yes
+Random read access: Yes
+```
 
 # Dependency
 - [pyca/cryptography](https://cryptography.io/en/latest/)
@@ -53,8 +53,6 @@ Encrypted message:
 
 Press any key to exit.
 ```
-
-### Decryption
 
 # Two Test Cases
 - Key: `140b41b22a29beb4061bda66b6747e14`
