@@ -129,7 +129,7 @@ if __name__ == "__main__":
             print("Encrypted message: ")
             print(cipher)
         except:
-            print("Unable to encrypt cipher. ")
+            print("Unable to encrypt message. ")
 
     print()
     x = input("Press any key to exit.")
