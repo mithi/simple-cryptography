@@ -7,10 +7,10 @@ This script implements one encryption/decryption systems in CBC mode of operatio
 Encryption parallelizable:  No
 Decryption parallelizable:  Yes
 Random read access: Yes
+![Cipher Block Chaining](./cbc-diagram.png)
 ```
 - [AES (Advanced Encryption Standard)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
 - [PKCS #5/#7 padding scheme](https://en.wikipedia.org/wiki/Padding_(cryptography)#PKCS#5_and_PKCS#7) as described in [RFC 5652](https://tools.ietf.org/html/rfc5652#section-6.3)
-![Cipher Block Chaining](./cbc-diagram.png)
 ```
 01
 02 02
