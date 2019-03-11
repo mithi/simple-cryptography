@@ -33,13 +33,13 @@ The secuet message is: Whtn using a stream cipher, never use the key more than o
 --
 ```
 
-## Theory and Strategy
+# Theory and Strategy
 
-CORE IDEA: XOR the ciphertexts together, and consider what happens when a space is XORed with a character in [a-z, A-Z].
+- XOR the ciphertexts together, and consider what happens when a space is XORed with a character in [a-z, A-Z].
 
 > A stream cipher is a symmetric key cipher where plaintext digits are combined with a pseudorandom cipher digit stream (keystream). In a stream cipher, each plaintext digit is encrypted one at a time with the corresponding digit of the keystream, to give a digit of the ciphertext stream. In practice, a digit is typically a bit and the combining operation an exclusive-or (XOR).
 
-#### **Stream Cipher Definition and Properties of XOR**
+### Stream Cipher Definition and Properties of XOR
 ```
 cipher = message xor key = key xor message
 message = cipher xor key = key xor choper
@@ -47,7 +47,8 @@ key = message xor cipher = message xor cipher
 
 ```
 
-#### Observation: When a space is xored with an uppercase character, the result is a lowercase character and vice versa.
+### Observation
+- When a space is xored with an uppercase character, the result is a lowercase character and vice versa.
 ```python
 >>> assert ord('M') ^ ord(' ') == ord('m')
 >>> assert ord('n') ^ ord(' ') == ord('N')
@@ -58,7 +59,7 @@ key = message xor cipher = message xor cipher
 ...   assert ord(i) ^ ord(' ') == ord(j)
 ```
 
-#### Core Idea
+### Core Idea
 ```
 if c1 xor c2 is an uppercase letter,
 then: either m1 or m2 is a space and the other is the corresponding lowercase letter.
