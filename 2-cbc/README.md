@@ -3,14 +3,22 @@ This script implements one encryption/decryption systems in CBC mode of operatio
 
 # Theory
 - [Cipher Block Chaining](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Block_Chaining_(CBC))
-- [AES (Advanced Encryption Standard)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
-- [PKCS #5/#7 padding scheme](https://en.wikipedia.org/wiki/Padding_(cryptography)#PKCS#5_and_PKCS#7)
-
-![Cipher Block Chaining](./cbc-diagram.png)
 ```
 Encryption parallelizable:  No
 Decryption parallelizable:  Yes
 Random read access: Yes
+```
+- [AES (Advanced Encryption Standard)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
+- [PKCS #5/#7 padding scheme](https://en.wikipedia.org/wiki/Padding_(cryptography)#PKCS#5_and_PKCS#7) as described in [RFC 5652](https://tools.ietf.org/html/rfc5652#section-6.3)
+![Cipher Block Chaining](./cbc-diagram.png)
+```
+01
+02 02
+03 03 03
+04 04 04 04
+05 05 05 05 05
+06 06 06 06 06 06
+etc.
 ```
 
 # Dependency
