@@ -1,5 +1,5 @@
 # Cipher Block Chaining
-This script implements a block cipher encryption/decryption system in CBC and CTR  ode of operation. We use AES for  decryption and encryption of each 16-byte block. The 16-byte encryption IV is chosen at random and is prepended to the ciphertext. For CBC, PKCS#5/#7 padding scheme is used. Note that for every encryption of the same message and the same key, a different ciphertext is generated, all ciphertext decrypt to the message.
+I've implemented two block cipher encryption/decryption systems; CBC and CTR mode of operation. We use AES for  decryption and encryption of each 16-byte block. The 16-byte encryption IV is chosen at random and is prepended to the ciphertext. For CBC, PKCS#5/#7 padding scheme is used. Note that for every encryption of the same message and the same key, a different ciphertext is generated, all ciphertext decrypt to the message.
 
 # Theory
 
