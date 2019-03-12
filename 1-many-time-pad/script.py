@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     parser.add_argument("-f", dest="filepath",
         help="Path to ciphertexts. Ciphers must be hex-encoded and separated by a newline,\
-              the first cipher is the target")
+              the first cipher is the target", required=True)
 
     parser.add_argument("--i", dest="iterations", type=int, default=42,
         help="Number of iterations for frequency analysis prior to generating key" )

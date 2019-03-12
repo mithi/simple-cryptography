@@ -12,16 +12,16 @@ if __name__ == "__main__":
 
     parser.add_argument("-act", dest="action",
         help="ENCODE/DECODE, encode to write a bytestream to send, \
-            decode to read and verify a bytestream")
+            decode to read and verify a bytestream", required=True)
 
     parser.add_argument("-src", dest="src",
-        help="The path to read bytes")
+        help="The path to read bytes", required=True)
 
     parser.add_argument("-dst", dest="dst",
-        help="The path to write bytes")
+        help="The path to write bytes", required=True)
 
     parser.add_argument("--i", dest="buffersize", type=int, default=1024,
-        help="Number of bytes per chunk of data" )
+        help="Number of bytes per chunk of data", required=True)
 
 
     args = parser.parse_args()
