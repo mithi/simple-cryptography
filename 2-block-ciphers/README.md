@@ -1,5 +1,26 @@
-# Cipher Block Chaining
-I've implemented two block cipher encryption/decryption systems; CBC and CTR mode of operation. We use AES for  decryption and encryption of each 16-byte block. The 16-byte encryption IV is chosen at random and is prepended to the ciphertext. For CBC, PKCS#5/#7 padding scheme is used. Note that for every encryption of the same message and the same key, a different ciphertext is generated, all ciphertext decrypt to the message.
+# About
+I've implemented two block cipher encryption/decryption systems; CBC and CTR mode of operation. I used AES for  decryption and encryption of each 16-byte block. The 16-byte encryption IV is chosen at random and is prepended to the ciphertext. For CBC, PKCS#5/#7 padding scheme is used. Note that for every encryption of the same message and the same key, a different ciphertext is generated. Diffent ciphertexts can decrypt to the same message.
+
+# Dependency
+- [pyca/cryptography](https://cryptography.io/en/latest/)
+
+# Sample Usage
+```
+$ python script.py
+
+-------------
+BLOCK CIPHER MODE OF OPERATION
+-------------
+Enter preferred mode of operation [cbc/ctr]: ctr
+Enter hex-encoded key: 36f18357be4dbd77f050515c73fcf9f2
+Decrypt or encrypt?[d/e]: d
+Enter hex-encoded cipher to decrypt: 69dda8455c7dd4254bf353b773304eec0ec7702330098ce7f7520d1cbbb20fc388d1b0adb5054dbd7370849dbf0b88d393f252e764f1f5f7ad97ef79d59ce29f5f51eeca32eabedd9afa9329
+
+Decrypted message:
+CTR mode lets you build a stream cipher from a block cipher.
+
+Press any key to exit.
+```
 
 # Theory
 
@@ -37,26 +58,6 @@ Properties
 Encryption parallelizable:  Yes
 Decryption parallelizable:  Yes
 Random read access: Yes
-```
-# Dependency
-- [pyca/cryptography](https://cryptography.io/en/latest/)
-
-# Sample Usage
-```
-$ python script.py
-
--------------
-BLOCK CIPHER MODE OF OPERATION
--------------
-Enter preferred mode of operation [cbc/ctr]: ctr
-Enter hex-encoded key: 36f18357be4dbd77f050515c73fcf9f2
-Decrypt or encrypt?[d/e]: d
-Enter hex-encoded cipher to decrypt: 69dda8455c7dd4254bf353b773304eec0ec7702330098ce7f7520d1cbbb20fc388d1b0adb5054dbd7370849dbf0b88d393f252e764f1f5f7ad97ef79d59ce29f5f51eeca32eabedd9afa9329
-
-Decrypted message:
-CTR mode lets you build a stream cipher from a block cipher.
-
-Press any key to exit.
 ```
 
 # Test Cases

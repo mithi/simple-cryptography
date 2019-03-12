@@ -8,7 +8,6 @@
 ### 2. Block Ciphers
 - You'll be able to encrypt or decrypt a message given a key using two modes of block cipher operations; CBC mode and CTR mode.
 
-
 ### 3. Simple File Authentication with SHA256
 - A simple file authentication system that simulate how you'd be able to authenticate and play video chunks as they are downloaded without having to wait for the entire file.
 
