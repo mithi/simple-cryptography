@@ -1,9 +1,11 @@
 # Cipher Block Chaining
-This script implements one encryption/decryption systems in CBC mode of operation. We use AES for  decryption and encryption of each 16-byte block. The 16-byte encryption IV is chosen at random and is prepended to the ciphertext.The PKCS#5/#7 padding scheme is used.
+This script implements a encryption/decryption system in CBC block cipher mode of operation. We use AES for  decryption and encryption of each 16-byte block. The 16-byte encryption IV is chosen at random and is prepended to the ciphertext.The PKCS#5/#7 padding scheme is used.
 
 # Theory
 - [Cipher Block Chaining](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Block_Chaining_(CBC))
 ```
+Properties
+
 Encryption parallelizable:  No
 Decryption parallelizable:  Yes
 Random read access: Yes
