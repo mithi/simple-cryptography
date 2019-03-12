@@ -1,0 +1,30 @@
+# About
+![Simple File Authentication System](./data/task.png)
+
+# Sample Usage
+```
+$ python script.py -h
+usage: script.py [-h] [-act ACTION] [-src SRC] [-dst DST] [--i BUFFERSIZE]
+
+Simple File Authentication System. Authenticate and decode a received byte
+stream or encode and write the bytestream to send.
+
+optional arguments:
+  -h, --help      show this help message and exit
+  -act ACTION     ENCODE/DECODE, encode to write a bytestream to send, decode
+                  to read and verify a bytestream
+  -src SRC        The path to read bytes
+  -dst DST        The path to write bytes
+  --i BUFFERSIZE  Number of bytes per chunk of data
+
+$ python script.py -act ENCODE -src ./data/video1.mp4 -dst ./data/encoded1.mp4 --i 1024
+Encoding...
+All hashes written in:  ./data/video1.mp4hash
+Final stream encoded in:  ./data/encoded1.mp4
+...done.
+
+$ python script.py -act DECODE -src ./data/encoded1.mp4 -dst ./data/video1copy.mp4
+Decoding...
+Stream verified, decoded written in:  ./data/video1copy.mp4
+...done.
+```
