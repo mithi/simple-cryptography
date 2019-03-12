@@ -16,7 +16,6 @@ def xor(x, y):
 
 
 def unpad(m):
-
     pad = m[-1]
     assert 1 <= pad <= 16, "Wrong padding"
 
@@ -24,7 +23,6 @@ def unpad(m):
         assert m[-i] == pad, "Wrong padding"
 
     return m[:-pad].decode("utf-8")
-
 
 
 def pad(pt):
@@ -59,7 +57,6 @@ def encrypt_cbc(pt_string, k_string, blocksize=16):
     aes_encrypt = AES_ENCRYPT(k)
     ct = bytearray(current)
 
-
     for i in range(n):
         start, end = i*blocksize, (i+1)*blocksize
         m = pt[start:end]
@@ -92,7 +89,8 @@ if __name__ == "__main__":
 
     print()
     print("-------------")
-    print("Decrypt or Encrypt using CBC AES (16-byte blocks PKCS5 Padding Scheme).")
+    print("Decrypt or Encrypt using CBC AES (16-byte blocks)")
+    print("(Plaintext uses PKCS5 Padding Scheme)")
     print("-------------")
 
     key = None
@@ -119,8 +117,7 @@ if __name__ == "__main__":
             print("Decrypted message: ")
             print(message)
         except:
-            print("Unable to decrypt cipher.")
-
+            print("Unable to decrypt cipher. ")
     else:
         message = input("Enter message in plaintext to encrypt: ")
         try:
@@ -133,6 +130,3 @@ if __name__ == "__main__":
 
     print()
     x = input("Press any key to exit.")
-
-
-
