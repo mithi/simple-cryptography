@@ -2,6 +2,19 @@
 This script implements a block cipher encryption/decryption system in CBC and CTR  ode of operation. We use AES for  decryption and encryption of each 16-byte block. The 16-byte encryption IV is chosen at random and is prepended to the ciphertext. For CBC, PKCS#5/#7 padding scheme is used. Note that for every encryption of the same message and the same key, a different ciphertext is generated, all ciphertext decrypt to the message.
 
 # Theory
+
+- [AES (Advanced Encryption Standard)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
+- [PKCS #5/#7 padding scheme](https://en.wikipedia.org/wiki/Padding_(cryptography)#PKCS#5_and_PKCS#7) as described in [RFC 5652](https://tools.ietf.org/html/rfc5652#section-6.3)
+```
+01
+02 02
+03 03 03
+04 04 04 04
+05 05 05 05 05
+06 06 06 06 06 06
+etc.
+```
+
 ### CBC
 
 - [Cipher Block Chaining](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Block_Chaining_(CBC))
@@ -15,17 +28,6 @@ Decryption parallelizable:  Yes
 Random read access: Yes
 ```
 
-- [AES (Advanced Encryption Standard)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
-- [PKCS #5/#7 padding scheme](https://en.wikipedia.org/wiki/Padding_(cryptography)#PKCS#5_and_PKCS#7) as described in [RFC 5652](https://tools.ietf.org/html/rfc5652#section-6.3)
-```
-01
-02 02
-03 03 03
-04 04 04 04
-05 05 05 05 05
-06 06 06 06 06 06
-etc.
-```
 ### CTR
 - [Counter mode with randomized IV](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Counter_(CTR))
 ![Cipher Block Chaining](./img/cbc-diagram.png)
