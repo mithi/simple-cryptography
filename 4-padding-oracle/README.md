@@ -21,7 +21,7 @@ http://THE.IP.ADDRESS/po?er=ARBITRARY_HEX_ENCODED_CIPHERTEXT_HERE
 ```
 $ python script.py
 ```
-![Sample Usage](./img/sample-usage.png)
+![Sample Usage](./img/sample-use.png)
 
 # Running the tests
 ### 1. Run the toy server
