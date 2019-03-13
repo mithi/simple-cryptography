@@ -65,8 +65,8 @@ if __name__=="__main__":
 
     print()
     print("Given p, g, and h, such that p is prime, and both g and h is less than p")
-    print("Find x such that g^x mod p = h mod p ", end="")
-    print("(g^x is g raised to the power of x) \n")
+    print("Find x such that g^x mod p = h", end="")
+    print("where g^x is g raised to the power of x \n")
 
     print()
     print("p = ")

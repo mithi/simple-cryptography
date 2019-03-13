@@ -14,7 +14,7 @@
 $ python mitm.py
 
 Given p, g, and h, such that p is prime, and both g and h is less than p
-Find x such that g^x mod p = h mod p (g^x is g raised to the power of x)
+Find x such that g^x mod p = h (g^x is g raised to the power of x)
 
 
 p =
@@ -45,8 +45,8 @@ x =  375374217830
 # Idea
 - let `B = 2^20` then `B^2 = 2^40`
 - then `x= xo * B + x1` where `xo` and `x1` are in `{0, 1, ..., B-1}`
-- Then smallest x is `x = 0 * B + O = 0`
-- Largest x is `x = B * (B-1) + B - 1 = B^2 - B + B -1 = B^2 - 1 = 2^40 - 1`
+- Then smallest `x` is `x = 0 * B + O = 0`
+- and the largest `x` is `x = B * (B-1) + B - 1 = B^2 - B + B -1 = B^2 - 1 = 2^40 - 1`
 - Then:
 ```
 h = g^x
@@ -60,21 +60,19 @@ h * (g^-1 mod p)^x1 mod p = (g^B mod p)^xo mod p
 
 # Strategy
 - Build a hash table key: `h / g^(x1)`, with value `x1` for `x1` in `{ 0, 1, 2, .., 2^20 - 1}`
-- For each value `x0` in `{0, 1, 2, ... 20^20 -1}` check if `(g^B)^(x0) mod P` is in hashtable. If it is then you've found `x0` and `x1`
+- For each value `x0` in `{0, 1, 2, ... 20^20 -1}` check if `(g^B)^(x0) mod P` is in hash table. If it is then you've found `x0` and `x1`
 - Return `x = xo * B + x1`
+
+# Notes
+- Work is `2^20` multiplications and `2^20` lookups in the worst case
+- If we brute forced it, we would do `2^40` multiplications
+- So the work is squareroot of brute force
 
 ### Modulo Division
 ```
  (x mod p) / ( y mod p)  = ((x mod p) * (y_inverse mod p)) mod p
 
 ```
-
-
-
-# Notes
-- Work is `2^20` multiplications and `2^20` lookups in the worst case
-- If we brute forced it, we would do `2^40` multiplications
-- So the work is squareroot of brute force
 
 ## Important Optimization
 - Careful not to do redundant exponentiations.
