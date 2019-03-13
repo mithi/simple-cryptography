@@ -1,6 +1,6 @@
 # About
 - Python scripts that illustrate basic cryptography concepts based on Coursera Standford Cryptography I course and more
-- Currently, in the process of being migrated from my [Algorithm Playground repository](https://github.com/mithi/algorithm-playground/tree/master/fifty-days/crypto)
+- Currently, in the process of being migrated from my [Algorithm Playground repository](https://github.com/mithi/algorithm-playground/tree/master/basic-cryptography)
 
 ### 1. Many Time Pad
 - This script will be able to decrypt a target ciphertext, given a bunch on intercepted ciphertexts encrypted with the same key (which may or may not have random errors). A stream cipher key should never be used more than once.

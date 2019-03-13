@@ -21,7 +21,7 @@ optional arguments:
 $ python script.py -act ENCODE -src ./data/video1.mp4 -dst ./data/encoded1.bin --i 1024
 Encoding...
 All hashes written in:  ./data/video1.mp4hash
-Final stream encoded in:  ./data/encoded1.mp4
+Final stream encoded in:  ./data/encoded1.bin
 ...done.
 
 $ python script.py -act DECODE -src ./data/encoded1.bin -dst ./data/video1copy.mp4
