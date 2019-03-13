@@ -1,4 +1,5 @@
 # About
+- A simple file authentication system that simulate how you'd be able to authenticate and play video chunks as they are downloaded without having to wait for the entire file.
 ![Simple File Authentication System](./data/task.png)
 
 # Sample Usage
@@ -17,13 +18,13 @@ optional arguments:
   -dst DST        The path to write bytes
   --i BUFFERSIZE  Number of bytes per chunk of data
 
-$ python script.py -act ENCODE -src ./data/video1.mp4 -dst ./data/encoded1.mp4 --i 1024
+$ python script.py -act ENCODE -src ./data/video1.mp4 -dst ./data/encoded1.bin --i 1024
 Encoding...
 All hashes written in:  ./data/video1.mp4hash
 Final stream encoded in:  ./data/encoded1.mp4
 ...done.
 
-$ python script.py -act DECODE -src ./data/encoded1.mp4 -dst ./data/video1copy.mp4
+$ python script.py -act DECODE -src ./data/encoded1.bin -dst ./data/video1copy.mp4
 Decoding...
 Stream verified, decoded written in:  ./data/video1copy.mp4
 ...done.
