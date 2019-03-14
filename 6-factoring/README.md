@@ -10,7 +10,7 @@ N_string = '17976931348623159077293051907890247336179769789423065727343008115773
 | p - q | < 2 * fourth_root_of(N)
 ```
 - Find `p` and `q`
-![./img/factoring1.png]
+![](./img/factoring1.png)
 
 
 # Problem 2
@@ -22,7 +22,7 @@ N_string = '72006226374735042527956443552558373833808445147399984182665305798191
 | 3p - 2q | <  fourth_root_of(N)
 ```
 - Find `p` and `q`
-![./img/factoring2.png]
+![](./img/factoring2.png)
 
 # Problem 3
 
@@ -36,7 +36,7 @@ N_string = '64845584280807166966282426534677227872634372070697626306043907037879
 ```
 - Find `p` and `q`
 
-![./img/factoring3.png]
+![](./img/factoring3.png)
 
 # Solution
 
