@@ -5,7 +5,8 @@ import gmpy2
 # CHALLENGE ONE
 # --------------------------------------------------
 def challenge1(N_string):
-
+    # find p an and q such that a given N = p * q
+    # and |p - q| < 2 * fourthroot_of(N)
     A = None
     N = mpz(N_string)
 
@@ -29,7 +30,8 @@ def challenge1(N_string):
 # CHALLENGE TWO
 # --------------------------------------------------
 def challenge2(N_string):
-
+    # find p an and q such that a given N = p * q
+    # and |3p - 2q| < fourthroot_of(N)
     A = None
     N = mpz(N_string)
     N_times_24 = 24 * N
@@ -70,6 +72,8 @@ def challenge2(N_string):
 # CHALLENGE THREE
 # --------------------------------------------------
 def challenge3(N_string):
+    # find p an and q such that a given N = p * q
+    # and |p - q| < 2^11 * fourthroot_of(N)
 
     N = mpz(N_string)
 
