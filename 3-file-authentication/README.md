@@ -3,6 +3,8 @@
 ![Simple File Authentication System](./data/task.png)
 
 # Sample Usage
+
+### Help
 ```
 $ python script.py -h
 usage: script.py [-h] [-act ACTION] [-src SRC] [-dst DST] [--i BUFFERSIZE]
@@ -17,14 +19,22 @@ optional arguments:
   -src SRC        The path to read bytes
   -dst DST        The path to write bytes
   --i BUFFERSIZE  Number of bytes per chunk of data
+```
 
+### Encoding
+```
 $ python script.py -act ENCODE -src ./data/video1.mp4 -dst ./data/encoded1.bin --i 1024
 Encoding...
+Writing hash in:  ./data/video1.mp4hash ...
 All hashes written in:  ./data/video1.mp4hash
+Deleting hash file...
 Final stream encoded in:  ./data/encoded1.bin
 ...done.
+```
 
-$ python script.py -act DECODE -src ./data/encoded1.bin -dst ./data/video1copy.mp4
+# Decoding
+```
+$ python script.py -act DECODE -src ./data/encoded1.bin -dst ./data/video1copy.mp4 --i 1024
 Decoding...
 Stream verified, decoded written in:  ./data/video1copy.mp4
 ...done.
