@@ -20,7 +20,7 @@ def test_authentication1(fileset1):
 
     f, h0 = fileset1
     fcopy = f + "copy.mp4"
-    fstream = f + "stream"
+    fstream = f + "stream.bin"
 
     sender = StreamSender(path=f, buffersize=1024)
     sender.write_file(path=fstream)
@@ -36,11 +36,12 @@ def test_authentication1(fileset1):
     subprocess.run(["rm", fcopy])
     subprocess.run(["rm", fstream])
 
-def test_authentication2(fileset):
+
+def test_authentication2(fileset2):
 
     f, h0 = fileset2
     fcopy = f + "copy.mp4"
-    fstream = f + "stream"
+    fstream = f + "stream.bin"
 
     sender = StreamSender(path=f, buffersize=1024)
     sender.write_file(path=fstream)

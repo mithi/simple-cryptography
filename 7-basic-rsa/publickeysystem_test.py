@@ -16,7 +16,7 @@ def test_set():
 def test1(test_set):
 
     _, _, e, d, N, p, q = test_set
-    d_phiN= compute_d(e, N, p, q)
+    d_phiN = compute_d(e, N, p, q)
     assert d == d_phiN
 
 
