@@ -1,6 +1,7 @@
 import pytest
 from authentication import StreamSender, StreamReceiver
 import filecmp
+import subprocess
 
 @pytest.fixture
 def fileset1():
@@ -32,8 +33,10 @@ def test_authentication1(fileset1):
 
     assert filecmp.cmp(fcopy, f)
 
+    subprocess.run(["rm", fcopy])
+    subprocess.run(["rm", fstream])
 
-def test_authentication2(fileset2):
+def test_authentication2(fileset):
 
     f, h0 = fileset2
     fcopy = f + "copy.mp4"
@@ -49,4 +52,8 @@ def test_authentication2(fileset2):
     assert sender.verify_hash()
 
     assert filecmp.cmp(fcopy, f)
+
+    subprocess.run(["rm", fcopy])
+    subprocess.run(["rm", fstream])
+
 
