@@ -1,6 +1,7 @@
 import argparse
 from hashlib import sha256
 import os
+import subprocess
 
 HASHSIZE = 32
 
@@ -43,7 +44,6 @@ class StreamReceiver:
 class StreamSender:
     def __init__(self, path, buffersize):
         self.file = path
-        self.hash = path + "hash"
         self.buffersize = buffersize
 
     # A generator that reads a block of data (size `buffersize` in bytes)
@@ -77,16 +77,18 @@ class StreamSender:
     # last block and the first hash
     # and so on until the last hash written is the hash of
     # the concatenation of the last block and the second to the last hash
-    def write_hash(self):
+    def write_hash(self, path):
         gen = self.read_block_reverse()
         h = bytes()
 
-        with open(self.hash, 'wb') as f:
+        print("Writing hash in: ", path, "...")
+
+        with open(path, 'wb') as f:
             for i in gen:
                 h = sha256(i + h).digest()
                 f.write(h)
 
-        print("All hashes written in: ", self.hash)
+        print("All hashes written in: ", path)
 
     # A generator that returns a chunk of bytes to be sent inorder
     # the first chunk is the first hash
@@ -95,7 +97,10 @@ class StreamSender:
     # finally, the last chunk to be returned is the last block of the file
     def read_block_hash(self):
 
-        with open(self.hash, "rb") as hf:
+        path = self.file + "hash"
+        self.write_hash(path)
+
+        with open(path, "rb") as hf:
 
             move = -2 * HASHSIZE
             hf.seek(0, os.SEEK_END)
@@ -108,12 +113,13 @@ class StreamSender:
                     hf.seek(move, 1)
                     yield f.read(self.buffersize) + hf.read(HASHSIZE)
                     if hf.tell() == HASHSIZE:
+                        print("Deleting hash file...")
+                        subprocess.call(["rm", path])
                         yield f.read(self.buffersize)
                         break
 
     # Write the total stream of bytes to path
     def write_file(self, path):
-        self.write_hash()
 
         gen = self.read_block_hash()
         with open(path, 'wb') as f:
