@@ -51,15 +51,7 @@ def generate_hexstring(length):
             i += 1
     return r.hex()
 
-# KNOWN ISSUE: FIX ME
-# Something is wrong with the ecrypt encrypt_pipeline
-# https://tools.ietf.org/html/rfc2313
-# 2^(8*k) --> k = 41 octets = 8 * 41 bits = 328 bits
-# 2048 bits = 256 bytes
-# The length of the data D shall not be more than k-11 octets, which is
-# positive since the length k of the modulus is at least 12 octets.
-# This limitation guarantees that the length of the padding string PS
-# is at least eight octets
+
 def encrypt_pipeline(plaintext, e, N):
 
     raw = bytes(plaintext, 'utf8')
