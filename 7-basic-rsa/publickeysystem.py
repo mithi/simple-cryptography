@@ -2,7 +2,8 @@ from os import urandom
 from gmpy2 import mpz
 from gmpy2 import invert, t_mod, mul, powmod
 
-LARGEST_HEX = mpz(340282366920938463463374607431768211455)
+TOTAL_LENGTH = 128
+REQUIRED_RANDOM_BYTES = 8
 
 def compute_d(e, N, p, q):
     # d * e mod phi(N) = 1
@@ -27,7 +28,7 @@ def encrypt(x, e, N):
 
 
 def decrypt_pipeline(ciphertext, d, N):
-    TOTAL_LENGTH = 128
+
     m_decimal = decrypt(mpz(ciphertext), mpz(d), mpz(N))
     m_bytes = int.to_bytes(int(m_decimal), TOTAL_LENGTH, "big")
 
@@ -55,8 +56,7 @@ def generate_hexstring(length):
 def encrypt_pipeline(plaintext, e, N):
 
     raw = bytes(plaintext, 'utf8')
-    print()
-    TOTAL_LENGTH = 128
+    assert len(plaintext) < TOTAL_LENGTH - 2 - REQUIRED_RANDOM_BYTES
     length = TOTAL_LENGTH - len(raw) - 2
     random_hexstring = generate_hexstring(length)
 
