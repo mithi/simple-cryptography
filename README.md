@@ -14,14 +14,14 @@
 ### 4. [Padding Oracle Attack](./4-padding-oracle/)
 - This script illustrates how you'd be able to decrypt an intercepted ciphertext if the receiver reveals whether a sent ciphertext is of valid format or not.
 
-### 5.  [Meet In the Middle Attack to solve a discete log problem](./5-meet-in-the-middle/)
+### 5.  [Meet In the Middle Attack](./5-meet-in-the-middle/)
 - The meet-in-the-middle attack (MITM) is a generic space–time tradeoff cryptographic attack. We demonstrate the MITM attack by using it to solve a discrete log problem.
 
 ### 6. [Factoring Challenges](./6-factoring/)
 - RSA can be broken when the public modulus `N` is generated incorrectly.  These scripts illustrate how you'd be able to factor `N` when `p` and `q` are close to each other.
 
- ### 7. [Basic Textbook RSA](./basic-rsa/)
- - Using a factored modulus in one of the factoring challenge, I implemented a pipeline using basic textbook RSA encryption and decryption. PKCS v1.5 is applied to the short secret message prior to RSA encryption. Upon decryption, the plaintext recovered is assumed to have PKCS v1.5 format.
+ ### 7. [Basic RSA](./7-basic-rsa/)
+ - Using a factored modulus in one of the factoring challenges, Here is a pipeline using basic  RSA encryption and decryption. A modified PKCS v1.5 is applied to the short secret message prior to RSA encryption and upon decryption, the plaintext recovered is assumed to have a modified PKCS v1.5 format.
 
 # References
 - [Coursera Cryptography I, Stanford, Dan Boneh](https://www-origin.coursera.org/learn/crypto)

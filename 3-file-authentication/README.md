@@ -32,7 +32,7 @@ Final stream encoded in:  ./data/encoded1.bin
 ...done.
 ```
 
-# Decoding
+### Decoding
 ```
 $ python script.py -act DECODE -src ./data/encoded1.bin -dst ./data/video1copy.mp4 --i 1024
 Decoding...
