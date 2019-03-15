@@ -1,5 +1,5 @@
 # About
-- Here is a pipeline using basic RSA encryption and decryption. A modified PKCS v1.5 is applied to the short secret message prior to RSA encryption and upon decryption, the plaintext recovered is assumed to have a modified PKCS #1 v1.5 format.
+- Here is a pipeline using basic RSA encryption and decryption. A modified PKCS v1.5 is applied to the short secret message prior to RSA encryption and upon decryption, the plaintext recovered is assumed to have a modified PKCS #1 v1.5 format. The modulus size is assumed to be around 128 bytes
 
 # Our Modified PCKS1.5
 ```
