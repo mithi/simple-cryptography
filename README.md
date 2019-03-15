@@ -21,7 +21,7 @@
 - RSA can be broken when the public modulus `N` is generated incorrectly.  These scripts illustrate how you'd be able to factor `N` when `p` and `q` are close to each other.
 
  ### 7. [Basic RSA](./7-basic-rsa/)
- - Using a factored modulus in one of the factoring challenges, Here is a pipeline using basic  RSA encryption and decryption. A modified PKCS v1.5 is applied to the short secret message prior to RSA encryption and upon decryption, the plaintext recovered is assumed to have a modified PKCS v1.5 format.
+ - Here is a pipeline using basic RSA encryption and decryption. A modified PKCS v1.5 is applied to the short secret message prior to RSA encryption and upon decryption, the plaintext recovered is assumed to have a modified PKCS v1.5 format. PKCS v1.5 is a specification widely used like in HTTPS but it turns out that this is not semantically secure. You can read more about the attack on the paper by **Bleichenbacher, 1998**.
 
 # References
 - [Coursera Cryptography I, Stanford, Dan Boneh](https://www-origin.coursera.org/learn/crypto)

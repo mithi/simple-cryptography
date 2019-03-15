@@ -1,5 +1,5 @@
 # About
-- Here is a pipeline using basic RSA encryption and decryption. A modified PKCS v1.5 is applied to the short secret message prior to RSA encryption and upon decryption, the plaintext recovered is assumed to have a modified PKCS #1 v1.5 format. The modulus size is assumed to be around 128 bytes
+- Here is a pipeline using basic RSA encryption and decryption. A modified PKCS v1.5 is applied to the short secret message prior to RSA encryption and upon decryption, the plaintext recovered is assumed to have a modified PKCS v1.5 format. PKCS v1.5 is a specification widely used like in HTTPS but it turns out that this is not semantically secure. You can read more about the attack on the paper by **Bleichenbacher, 1998**. The modulus size is assumed to be around 128 bytes.
 
 # Our Modified PCKS1.5
 ```
@@ -21,7 +21,7 @@ e.g 2048 bits or 256 bytes or
 +--------+------------------------------+------+--------------------+
 ```
 - Where there is atleast 8 bytes. So the maximum size of the message must be less than the size of the modulus size minus 11.
-- PKCS v1.5 is a specification widely used like in HTTPS but it turns out that this is not semantically secure. You can rean more about the attack on the paper by **Bleichenbacher 1998**
+- PKCS v1.5 is a specification widely used like in HTTPS but it turns out that this is not semantically secure. You can read more about the attack on the paper by **Bleichenbacher 1998**
 - This is because the attacker can test if the 16 most significant bits are `0x0002`.
 - You can learn more [about PKCS1.5 in rfc2313](https://tools.ietf.org/html/rfc2313)
 
@@ -174,7 +174,7 @@ Factoring lets us break RSA.
 
 ```
 
-# Theory and Basic RSA
+# Theory
 > RSA (Rivest–Shamir–Adleman) is one of the first public-key cryptosystems and is widely used for secure data transmission. The encryption key is public and it is different from the decryption key which is kept secret (private). In RSA, this asymmetry is based on the practical difficulty of the factorization of the product of two large prime number
 
 ### Public Key Encryption
@@ -185,7 +185,7 @@ Factoring lets us break RSA.
 - For consistency for every (`pk`, `sk`) pair that is an output of `G()`, then for every `m` in `M`
 the following holds.
 ```
-D(sk), E(pk, m)) = m
+D(sk, E(pk, m)) = m
 ```
 
 ### Secure Trapdoor functions
