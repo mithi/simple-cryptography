@@ -13,9 +13,8 @@ if __name__ == "__main__":
         given a bunch on intercepted ciphertexts encrypted with the same unknown key. \
         Ciphertexts may or may not have random errors.")
 
-    parser.add_argument("-f", dest="filepath",
-        help="Path to ciphertexts. Ciphers must be hex-encoded and separated by a newline,\
-              the first cipher is the target", required=True)
+    parser.add_argument('filepath', help="Path to ciphertexts. Ciphers must be hex-encoded and \
+        separated by a newline, the first cipher is the target")
 
     parser.add_argument("--i", dest="iterations", type=int, default=42,
         help="Number of iterations for frequency analysis prior to generating key" )

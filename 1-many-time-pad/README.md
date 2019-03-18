@@ -9,24 +9,27 @@
 
 ### Help
 ```
-$ python script.py --help
-usage: script.py [-h] [-f FILEPATH] [--i ITERATIONS] [-v]
+$ python script.py -h
+usage: script.py [-h] [--i ITERATIONS] [-v] filepath
 
 Decrypts a target ciphertext, given a bunch on intercepted ciphertexts
 encrypted with the same unknown key. Ciphertexts may or may not have random
 errors.
 
+positional arguments:
+  filepath        Path to ciphertexts. Ciphers must be hex-encoded and
+                  separated by a newline, the first cipher is the target
+
 optional arguments:
   -h, --help      show this help message and exit
-  -f FILEPATH     Path to ciphertexts. Ciphers must be hex-encoded and
-                  separated by a newline, the first cipher is the target
   --i ITERATIONS  Number of iterations for frequency analysis prior to
                   generating key
+  -v              Display more information
 ```
 
 ### Decryption
 ```
-$ python script.py -f ./data.txt --i 20
+$ python script.py ./data.txt --i 20
 Finding key... Decrypting target ciphertext... done.
 --
 The secuet message is: Whtn using a stream cipher, never use the key more than once
