@@ -1,51 +1,14 @@
-import argparse
 from hashlib import sha256
 import os
 import subprocess
 
 HASHSIZE = 32
 
-class StreamReceiver:
 
-    def __init__(self, path, buffersize=1024):
-        self.stream = path
-        self.buffersize = buffersize
-
-    # A generator that outputs a stream of bytes as
-    # expected by our system
-    def output_stream(self):
-        with open(self.stream, 'rb') as f:
-
-            f.seek(0, os.SEEK_END)
-            filesize = f.tell()
-            f.seek(0)
-            yield f.read(HASHSIZE)
-            chunksize = HASHSIZE + self.buffersize
-            while filesize - f.tell() > self.buffersize:
-                yield f.read(chunksize)
-            yield f.read(self.buffersize)
-
-    def write_file(self, path):
-        chunksize = self.buffersize + HASHSIZE
-        gen = self.output_stream()
-        with open(path, 'wb') as f:
-            h = next(gen)
-            for chunk in gen:
-                if sha256(chunk).digest() != h:
-                    print(h.hex())
-                    print(sha256(chunk).digest().hex())
-                    print(chunk.hex())
-                    raise ValueError
-                h = chunk[-HASHSIZE:]
-                f.write(chunk[:self.buffersize])
-        print("Stream verified, decoded written in: ", path)
-
-
-class StreamSender:
+class OldStreamSender:
     def __init__(self, path, buffersize):
         self.file = path
         self.buffersize = buffersize
-        self.hashes = []
 
     # A generator that reads a block of data (size `buffersize` in bytes)
     # at a time, starting from the last block to the first block of the file
@@ -78,17 +41,18 @@ class StreamSender:
     # last block and the first hash
     # and so on until the last hash written is the hash of
     # the concatenation of the last block and the second to the last hash
-    def write_hash(self):
+    def write_hash(self, path):
         gen = self.read_block_reverse()
         h = bytes()
 
-        print("Writing hash in memory...")
+        print("Writing hash in: ", path, "...")
 
-        for i in gen:
-            h = sha256(i + h).digest()
-            self.hashes.append(h)
+        with open(path, 'wb') as f:
+            for i in gen:
+                h = sha256(i + h).digest()
+                f.write(h)
 
-        print("Done.")
+        print("All hashes written in: ", path)
 
     # A generator that returns a chunk of bytes to be sent inorder
     # the first chunk is the first hash
@@ -96,17 +60,27 @@ class StreamSender:
     # the third chunk is the second block of the file and the third hash
     # finally, the last chunk to be returned is the last block of the file
     def read_block_hash(self):
-        self.write_hash()
-        yield self.hashes.pop()
 
-        with open(self.file, 'rb') as f:
-            while True:
-                yield f.read(self.buffersize) + self.hashes.pop()
-                if len(self.hashes) == 0:
-                    print("Hashes depleted. Writing last byte...")
-                    yield f.read(self.buffersize)
-                    print("Done.")
-                    break
+        path = self.file + "hash"
+        self.write_hash(path)
+
+        with open(path, "rb") as hf:
+
+            move = -2 * HASHSIZE
+            hf.seek(0, os.SEEK_END)
+            hf.seek(-HASHSIZE, os.SEEK_END)
+
+            yield hf.read(HASHSIZE)
+
+            with open(self.file, 'rb') as f:
+                while True:
+                    hf.seek(move, 1)
+                    yield f.read(self.buffersize) + hf.read(HASHSIZE)
+                    if hf.tell() == HASHSIZE:
+                        print("Deleting hash file...")
+                        subprocess.call(["rm", path])
+                        yield f.read(self.buffersize)
+                        break
 
     # Write the total stream of bytes to path
     def write_file(self, path):
@@ -131,6 +105,7 @@ class StreamSender:
 
     # Given the file return the first hash to be sent to the receiver
     def compute_first_hash(self):
+
         gen = self.read_block_reverse()
         h = bytes()
 

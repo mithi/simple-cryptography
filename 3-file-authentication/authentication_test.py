@@ -1,5 +1,7 @@
 import pytest
-from authentication import StreamSender, StreamReceiver
+from authentication import StreamReceiver, StreamSender
+from oldstreamsender import OldStreamSender
+
 import filecmp
 import subprocess
 
@@ -16,45 +18,40 @@ def fileset2():
     return file, hash0
 
 
-def test_authentication1(fileset1):
+def helper(Sender, f, h0):
+    fcopy = f + "copy.mp4"
+    fstream = f + "stream.bin"
 
+    sender = Sender(path=f, buffersize=1024)
+    sender.write_file(path=fstream)
+
+    receiver = StreamReceiver(path=fstream, buffersize=1024)
+    receiver.write_file(path=fcopy)
+
+    assert h0 == sender.compute_first_hash().hex()
+    assert sender.verify_hash()
+
+    assert filecmp.cmp(fcopy, f)
+
+    subprocess.run(["rm", fcopy])
+    subprocess.run(["rm", fstream])
+
+
+def test_authentication1b(fileset1):
     f, h0 = fileset1
-    fcopy = f + "copy.mp4"
-    fstream = f + "stream.bin"
-
-    sender = StreamSender(path=f, buffersize=1024)
-    sender.write_file(path=fstream)
-
-    receiver = StreamReceiver(path=fstream, buffersize=1024)
-    receiver.write_file(path=fcopy)
-
-    assert h0 == sender.compute_first_hash().hex()
-    assert sender.verify_hash()
-
-    assert filecmp.cmp(fcopy, f)
-
-    subprocess.run(["rm", fcopy])
-    subprocess.run(["rm", fstream])
+    helper(OldStreamSender, f, h0)
 
 
-def test_authentication2(fileset2):
-
+def test_authentication2b(fileset2):
     f, h0 = fileset2
-    fcopy = f + "copy.mp4"
-    fstream = f + "stream.bin"
-
-    sender = StreamSender(path=f, buffersize=1024)
-    sender.write_file(path=fstream)
-
-    receiver = StreamReceiver(path=fstream, buffersize=1024)
-    receiver.write_file(path=fcopy)
-
-    assert h0 == sender.compute_first_hash().hex()
-    assert sender.verify_hash()
-
-    assert filecmp.cmp(fcopy, f)
-
-    subprocess.run(["rm", fcopy])
-    subprocess.run(["rm", fstream])
+    helper(OldStreamSender, f, h0)
 
 
+def test_authentication1a(fileset1):
+    f, h0 = fileset1
+    helper(StreamSender, f, h0)
+
+
+def test_authentication2a(fileset2):
+    f, h0 = fileset2
+    helper(StreamSender, f, h0)
