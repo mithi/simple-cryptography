@@ -41,8 +41,7 @@ be really used!
 
 optional arguments:
   -h, --help  show this help message and exit
-  -a A        encrypt/decrypt, encode to write a bytestream to send, decode to
-              read and verify a bytestream
+  -a A        encrypt/decrypt
   -x X        Path to the string you want to decrypt or encrypt
   -N N        Path were N is stored
   -i I        Path were e or d is stored
@@ -51,7 +50,6 @@ optional arguments:
 ### Encrypting
 ```
 $ python script.py -a encrypt -N ./data/N.txt -i ./data/e.txt -x ./data/m.txt
-Your ciphertext must be a decimal integer.
 Encrypting...
 
 

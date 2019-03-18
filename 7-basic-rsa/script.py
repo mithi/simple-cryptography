@@ -40,11 +40,6 @@ def run(args):
 
     if args.a.lower() == "encrypt":
 
-        try:
-            int(x)
-        except:
-            print("Your ciphertext must be a decimal integer.")
-
         print("Encrypting...")
         f = encrypt_pipeline
         e_or_d = "Private exponent"
@@ -52,6 +47,11 @@ def run(args):
         end = "Ciphertext"
 
     else: #decrypt
+
+        try:
+            int(x)
+        except:
+            print("Your ciphertext must be a decimal integer.")
 
         print("Decrypting...")
         f = decrypt_pipeline
@@ -104,8 +104,7 @@ if __name__ == "__main__":
         ")
 
     parser.add_argument("-a", dest="a",
-        help="encrypt/decrypt, encode to write a bytestream to send, \
-            decode to read and verify a bytestream", required=True)
+        help="encrypt/decrypt", required=True)
 
     parser.add_argument("-x", dest="x",
         help="Path to the string you want to decrypt or encrypt", required=True)
