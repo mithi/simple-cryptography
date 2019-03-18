@@ -8,37 +8,33 @@ if __name__ == "__main__":
     # -------------------
     parser = argparse.ArgumentParser(description="Simple File Authentication System. \
         Authenticate and decode a received byte stream \
-        or encode and write the bytestream to send.")
+        or sign and write the bytestream to send.")
 
-    parser.add_argument("-act", dest="action",
-        help="ENCODE/DECODE, encode to write a bytestream to send, \
-            decode to read and verify a bytestream", required=True)
+    parser.add_argument("action",  help="SIGN/VERIFY, encode to write a bytestream to send, \
+            decode to read and verify a bytestream")
 
-    parser.add_argument("-src", dest="src",
-        help="The path to read bytes", required=True)
-
-    parser.add_argument("-dst", dest="dst",
-        help="The path to write bytes", required=True)
+    parser.add_argument('src', help="Path to read bytes")
+    parser.add_argument("dst", help="The path to write bytes")
 
     parser.add_argument("--i", dest="buffersize", type=int, default=1024,
-        help="Number of bytes per chunk of data", required=True)
+        help="Number of bytes per chunk of data (default: 1024 bytes.)")
 
 
     args = parser.parse_args()
 
-    if args.action.lower() == "encode":
+    if args.action.lower() == "sign":
         print("Encoding...")
         sender = StreamSender(path=args.src, buffersize=args.buffersize)
         sender.write_file(path=args.dst)
         print("...done.")
 
-    elif args.action.lower() == "decode":
+    elif args.action.lower() == "verify":
         print("Decoding...")
         receiver = StreamReceiver(path=args.src, buffersize=args.buffersize)
         receiver.write_file(path=args.dst)
         print("...done.")
     else:
-        print("Invalid action. Try ENCODE or DECODE next time")
+        print("Invalid action. Try SIGN or VERIFY next time")
 
 
 
