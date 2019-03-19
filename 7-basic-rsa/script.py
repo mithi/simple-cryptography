@@ -98,10 +98,9 @@ if __name__ == "__main__":
     # PARSE ARGUMENT
     # -------------------
     parser = argparse.ArgumentParser(description="a pipeline using basic RSA encryption and decryption.\
-        A modified PKCS v1.5 is applied to the short secret message prior to RSA encry!ption and upon decryption,\
+        A modified PKCS v1.5 is applied to the short secret message prior to RSA encryption and upon decryption,\
         the plaintext recovered is assumed to have a modified PKCS 1 v1.5 format.. \
-        IMPORTANT: PKCS v1.5 is severely broken in the real world and should be really used!\
-        ")
+        IMPORTANT: PKCS v1.5 is severely broken in the real world and should be really used!")
 
     parser.add_argument("-a", dest="a",
         help="encrypt/decrypt", required=True)
