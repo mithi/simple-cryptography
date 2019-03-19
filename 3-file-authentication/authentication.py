@@ -7,38 +7,38 @@ HASHSIZE = 32
 
 class StreamReceiver:
 
-    def __init__(self, path, buffersize=1024):
+    def __init__(self, path, h, buffersize=1024):
         self.stream = path
         self.buffersize = buffersize
+        self.h0 = bytes.fromhex(h)
 
     # A generator that outputs a stream of bytes as
     # expected by our system
     def output_stream(self):
         with open(self.stream, 'rb') as f:
-
-            f.seek(0, os.SEEK_END)
-            filesize = f.tell()
-            f.seek(0)
-            yield f.read(HASHSIZE)
-            chunksize = HASHSIZE + self.buffersize
-            while filesize - f.tell() > self.buffersize:
-                yield f.read(chunksize)
-            yield f.read(self.buffersize)
+            n = HASHSIZE + self.buffersize
+            for chunk in iter(lambda: f.read(n), ''):
+                if len(chunk) == 0: break
+                yield chunk
 
     def write_file(self, path):
+
+        print("h0: ", self.h0.hex())
+        print("Verifying...")
+
         chunksize = self.buffersize + HASHSIZE
+        h = self.h0
         gen = self.output_stream()
+
         with open(path, 'wb') as f:
-            h = next(gen)
+
             for chunk in gen:
                 if sha256(chunk).digest() != h:
-                    print(h.hex())
-                    print(sha256(chunk).digest().hex())
-                    print(chunk.hex())
                     raise ValueError
                 h = chunk[-HASHSIZE:]
                 f.write(chunk[:self.buffersize])
-        print("Stream verified, decoded written in: ", path)
+
+        print("File created: ", path)
 
 
 class StreamSender:
@@ -46,6 +46,7 @@ class StreamSender:
         self.file = path
         self.buffersize = buffersize
         self.hashes = []
+        self.h0 = None
 
     # A generator that reads a block of data (size `buffersize` in bytes)
     # at a time, starting from the last block to the first block of the file
@@ -78,62 +79,44 @@ class StreamSender:
     # last block and the first hash
     # and so on until the last hash written is the hash of
     # the concatenation of the last block and the second to the last hash
-    def write_hash(self):
+    # The last hash written would be removed from the list and stored
+    # in `self.h0` as this will be distributed to users
+    def build_hashes(self):
+        print("Writing hash in memory...")
         gen = self.read_block_reverse()
         h = bytes()
-
-        print("Writing hash in memory...")
 
         for i in gen:
             h = sha256(i + h).digest()
             self.hashes.append(h)
 
-        print("Done.")
+        self.h0 = self.hashes.pop()
 
     # A generator that returns a chunk of bytes to be sent inorder
-    # the first chunk is the first hash
-    # the second chunk is the first block of the file and the second hash
+    # the first hash is not written as part of the file.
+    # the first chunk is the first block of the file and the second hash
     # the third chunk is the second block of the file and the third hash
     # finally, the last chunk to be returned is the last block of the file
     def read_block_hash(self):
-        self.write_hash()
-        yield self.hashes.pop()
+        self.build_hashes()
 
         with open(self.file, 'rb') as f:
             while True:
                 yield f.read(self.buffersize) + self.hashes.pop()
                 if len(self.hashes) == 0:
-                    print("Hashes depleted. Writing last byte...")
                     yield f.read(self.buffersize)
-                    print("Done.")
+                    print("Hashes depleted.")
                     break
 
-    # Write the total stream of bytes to path
     def write_file(self, path):
 
+        print("Signing...")
         gen = self.read_block_hash()
         with open(path, 'wb') as f:
             for chunk in gen:
                 f.write(chunk)
-        print("Final stream encoded in: ", path)
+        print("h0: ", self.h0.hex())
+        print("Final created: ", path)
 
-    # Verifies if the file and the hash file matches
-    def verify_hash(self):
-
-        gen = self.read_block_hash()
-        h = next(gen)
-
-        for chunk in gen:
-            if sha256(chunk).digest() != h:
-                return False
-            h = chunk[-HASHSIZE:]
-        return True
-
-    # Given the file return the first hash to be sent to the receiver
-    def compute_first_hash(self):
-        gen = self.read_block_reverse()
-        h = bytes()
-
-        for i in gen:
-            h = sha256(i + h).digest()
-        return h
+    def get_first_hash(self):
+        return self.h0.hex()

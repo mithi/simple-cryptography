@@ -16,29 +16,20 @@ if __name__ == "__main__":
     parser.add_argument('src', help="Path to read bytes")
     parser.add_argument("dst", help="The path to write bytes")
 
-    parser.add_argument("--i", dest="buffersize", type=int, default=1024,
-        help="Number of bytes per chunk of data (default: 1024 bytes.)")
+    parser.add_argument("hash", default=None, help="This is NOT need for signing.")
 
+    parser.add_argument("-i", dest="buffersize", type=int, default=1024,
+        help="Number of bytes per chunk of data (default: 1024 bytes.)")
 
     args = parser.parse_args()
 
     if args.action.lower() == "sign":
-        print("Encoding...")
         sender = StreamSender(path=args.src, buffersize=args.buffersize)
         sender.write_file(path=args.dst)
-        print("...done.")
 
     elif args.action.lower() == "verify":
-        print("Decoding...")
-        receiver = StreamReceiver(path=args.src, buffersize=args.buffersize)
+        if args.hash == None: print("Hash not specified. Please specify hash.")
+        receiver = StreamReceiver(path=args.src, h= args.hash, buffersize=args.buffersize)
         receiver.write_file(path=args.dst)
-        print("...done.")
     else:
         print("Invalid action. Try SIGN or VERIFY next time")
-
-
-
-
-
-
-
