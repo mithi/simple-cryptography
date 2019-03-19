@@ -34,7 +34,7 @@ Signing...
 Writing hash in memory...
 Hashes depleted.
 h0:  5b96aece304a1422224f9a41b228416028f9ba26b0d1058f400200f06a589949
-Final created:  ./data/SIGNED.bin
+File created:  ./data/SIGNED.bin
 ```
 
 ### Verify

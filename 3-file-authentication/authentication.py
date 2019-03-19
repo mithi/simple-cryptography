@@ -116,7 +116,7 @@ class StreamSender:
             for chunk in gen:
                 f.write(chunk)
         print("h0: ", self.h0.hex())
-        print("Final created: ", path)
+        print("File created: ", path)
 
     def get_first_hash(self):
         return self.h0.hex()
