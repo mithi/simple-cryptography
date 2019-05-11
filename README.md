@@ -1,3 +1,5 @@
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/minimithi)
+
 # About
 - Python scripts that illustrate basic cryptography concepts based on Coursera Standford Cryptography I course and more.
 - My plan is to add more scripts as I come across other fun cryptographic challenges.
@@ -22,6 +24,8 @@
 
  ### 7. [Basic RSA](./7-basic-rsa/)
  - An example pipeline that demonstrates basic RSA encryption and decryption.
+ 
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/minimithi)
 
 # References
 - [Coursera Cryptography I, Stanford, Dan Boneh](https://www-origin.coursera.org/learn/crypto)
