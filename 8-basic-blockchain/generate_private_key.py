@@ -11,6 +11,7 @@
 # to generate a random number, usually generator is initialized
 # with human source or randomness, like wiggling your mouse
 
+# private key can be any number between 0 and n - 1 inclusive
 # Method:
 # Find a cryptographically secure source of entropy randomness
 # Randomly pick 256-bit number repeatly until it's less than n
@@ -23,7 +24,7 @@ import hashlib
 import secrets
 
 n = 2**256 - 2**32 - 2**9 - 2**8 - 2**7 - 2**6 - 2**4 - 1
-private_key = 0
+private_key = 0 # will be bytes
 
 while True:
 
@@ -32,19 +33,14 @@ while True:
     private_key = h.digest()
     m = int.from_bytes(private_key, byteorder="big")
 
-    if (m - n) < n - 1:
+    if m < n :
         break
 
-print()
-print("-----")
+print("\n-----")
 print("PRIVATE KEY")
 print("-----")
-print()
 
-print("In bytes: \n", private_key)
+print("\nIn bytes:\n", private_key)
+print("\nIn hex:\n", private_key.hex())
 
-print()
-print("In hex: \n", private_key.hex())
-
-print()
-print("-----")
+print("\n-----")
