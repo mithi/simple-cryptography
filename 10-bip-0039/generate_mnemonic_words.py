@@ -23,7 +23,6 @@
 # 224     7   21
 # 256     8   24
 
-
 import secrets
 import hashlib
 import words
@@ -45,10 +44,10 @@ def generate_mnemonic(rsequence):
 
     # random sequence in binary string
     i = int.from_bytes(rsequence, byteorder='big')
-    rstring = bin(i)[2:]
+    entropy = bin(i)[2:]
 
-    while (len(rstring) < lenseq):
-        rstring = '0' + rstring
+    while (len(entropy) < lenseq):
+        entropy = '0' + entropy
 
     # checksum in binary string
     h = hashlib.sha256()
@@ -64,17 +63,12 @@ def generate_mnemonic(rsequence):
     checksum = checksum[:lencheck]
 
     # final binary string
-    bitstring = rstring + checksum
-
-    # sanity check
-    assert len(checksum) == lenchecksum[lenseq]
-    assert len(rsequence) == lenseq // 8
-    assert len(bitstring) % 11 == 0
+    final_string = entropy + checksum
 
     # get mnemonic words
     mnemonic_words = []
-    for i in range(0, len(bitstring), 11):
-        b = bitstring[i:(i + 11)]
+    for i in range(0, len(final_string), 11):
+        b = final_string[i:(i + 11)]
         x = int(b, 2)
         mnemonic_words.append(words.english_words[x])
 
@@ -86,7 +80,7 @@ if __name__ == "__main__":
     # --------------
     # Tests
     # --------------
-    print("testing...")
+    print("testing...", end="")
 
     testcases = testmnemonic.test_cases()
     random.shuffle(testcases)
@@ -96,16 +90,17 @@ if __name__ == "__main__":
         mnemonic_words = generate_mnemonic(random_sequence)
         assert mnemonic_words == correct_mnemonic_words
 
-    print("test complete")
+    print("test complete. \n")
 
     # --------------
     # generate mnemonic words from a random sequence of bits.
     # --------------
+    print("\nNew mnemonic! \n")
     nbytes = 32 # 256 bits
     random_sequence = secrets.token_bytes(nbytes)
     mnemonic_words = generate_mnemonic(random_sequence)
 
     for word in mnemonic_words:
-        print(word, " ", end="")
+        print(word)
 
     print()
